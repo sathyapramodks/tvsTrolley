@@ -146,9 +146,9 @@ def trolley_dim_detector(Plen, Pwid, Phei, PartWeight, Clen, Cwid, Chei, Ghei):
 
 # director
 def director(check):
-    if check:
+    if check == 'Select if you want to auto calculate clearance between parts':
         return trolley_dim_detector_AutoClearance(Plen = Plen ,Pwid =  Pwid, Phei =  Phei, PartWeight = PartWeight, Ghei = Ghei)
-    elif check2:
+    elif check == 'Select if you want to protrude higher than the height of the trolley':
         return trolley_dim_detector_partHeight(Plen = Plen ,Pwid =  Pwid, Phei =  Phei, PartWeight = PartWeight, Ghei = Ghei, Clen = clen, Cwid = cwid, Chei = chei)
     else:
         return trolley_dim_detector(Plen = Plen ,Pwid =  Pwid, Phei =  Phei, PartWeight = PartWeight, Ghei = Ghei, Clen = clen, Cwid = cwid, Chei = chei)
@@ -158,11 +158,12 @@ Pwid = stm.number_input("enter the width of the Bounding box (mm)")
 Phei = stm.number_input("Enter the height of the Bounding box (mm)")
 PartWeight = stm.number_input('Enter the weigth of the part (kg)')
 Ghei = stm.number_input("enter the gorund clearance for the the trolley")
-check = stm.checkbox('Select if you want to auto calculate clearance between parts', help = 'distance between parts', )
-check2 = stm.checkbox('Select if you want to protrude higher than the height of the trolley')
+# check = stm.checkbox('Select if you want to auto calculate clearance between parts', help = 'distance between parts', )
+# check2 = stm.checkbox('Select if you want to protrude higher than the height of the trolley')
 
+check4 = stm.radio("Choose the appropriate", ('Select if you want to auto calculate clearance between parts', 'Select if you want to protrude higher than the height of the trolley', 'Select if you want to calculate it normally'))
 
-if check:
+if check4 == 'Select if you want to auto calculate clearance between parts':
      stm.write('Part to part clearance will be calculated automatically \n 15 "%" of the dimension ')
 else:
     clen = stm.number_input("Enter the clearance between parts in length direction ")
@@ -173,5 +174,5 @@ check3 = stm.button('Calculate')
 
 
 if check3:
-    stm.write(director(check))
-    print(director(check))
+    stm.write(director(check4))
+    print(director(check4))
