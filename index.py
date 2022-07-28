@@ -48,7 +48,7 @@ def trolley_dim_detector_AutoClearance(Plen, Pwid, Phei, PartWeight, Ghei):
     'Trolley Length (mm)': Tlen,
     'Trolley Width (mm)': Twid,
     'Trolley Height (mm)': Thei,
-    'Capacity': N,
+    'Capacity': Nl*Nw*Nh,
     'Pulling Force (kgf)': F,
   }, index=[0])    
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)], Clen, Cwid, Chei)
@@ -91,7 +91,7 @@ def trolley_dim_detector_partHeight(Plen, Pwid, Phei, PartWeight, Clen, Cwid, Ch
     'Trolley Length (mm)': Tlen,
     'Trolley Width (mm)': Twid,
     'Trolley Height (mm)': Thei,
-    'Capacity': N,
+    'Capacity': Nl*Nw*Nh,
     'Pulling Force (kgf)': F,
   }, index=[0])    
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)], Clen, Cwid, Chei)
@@ -135,7 +135,7 @@ def trolley_dim_detector(Plen, Pwid, Phei, PartWeight, Clen, Cwid, Chei, Ghei):
     'Trolley Length (mm)': Tlen,
     'Trolley Width (mm)': Twid,
     'Trolley Height (mm)': Thei,
-    'Capacity': N,
+    'Capacity': Nl*Nw*Nh,
     'Pulling Force (kgf)': F,
   }, index=[0])    
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)], Clen, Cwid, Chei)
