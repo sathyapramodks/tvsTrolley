@@ -11,45 +11,51 @@ Enter the part details below
 
 def trolley_dim_detector_AutoClearance(Plen, Pwid, Phei, PartWeight, Ghei):
   Tlen = Twid = Thei = 0
-  Clen = 0.15 * Plen
-  Cwid = 0.15 * Pwid
-  Chei = 0.15 * Phei
   Nl = Nw = Nh = N = 0
   a = 0.2285
   F = 0
+  Clen = Plen * 0.15
+  Cwid = Pwid *0.15
+  Chei = Phei *0.15
+  #Flst = []
   mP = PartWeight
   mT = 100
-  for i in range (1,100):
-    if (Plen*i)+(Clen*(i+1)) < 1400 and F < 16:
-        Tlen = (Plen*i)+(Clen*(i+1))
-        #print('{} Len block'.format(i))
-        Nl = i
-    else: 
-        pass
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-
-    if (Pwid*i)+(Cwid*(i+1)) < 1000 and F < 16:
-        Twid = (Pwid*i)+(Cwid*(i+1))
-        #print('{} Width block'.format(i))
-        Nw = i
-    else: 
-        pass
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-
-    if (Phei*i)+(Chei*(i+1))+Ghei < 1500 and F < 16:
-        Thei = (Phei*i)+(Chei*(i+1))+Ghei
-        #print('{} height block {}'.format(i, Thei))
-        Nh = i
-    else: 
-        pass 
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+  i = 1
+  while F < 16:
+    if (Tlen+(Plen+Clen)<1400) or (Twid+Pwid+Cwid<1000) or (Thei+Phei+Chei<1500):
+        if (Plen*i)+(Clen*(i+1)) < 1400:
+          Tlen = (Plen*i)+(Clen*(i+1))
+          Nl=Nl+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nl -= 1
+            break
+        if (Pwid*i)+(Cwid*(i+1)) < 1000:
+          Twid = (Pwid*i)+(Cwid*(i+1))
+          Nw=Nw+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nw -= 1
+            break
+        if (Phei*i)+(Chei*(i+1))+Ghei < (1500+(1500*0.15)):
+          Thei = (Phei*i)+(Chei*(i+1))+Ghei
+          Nh=Nh+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nh -= 1
+            break
+    else:
+        break
+    #F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+    #Flst.append(F)
+    i+=1
   df = pd.DataFrame({
     'Parameters' : 'Value',
     'Trolley Length (mm)': Tlen,
     'Trolley Width (mm)': Twid,
     'Trolley Height (mm)': Thei,
     'Capacity': Nl*Nw*Nh,
-    'Pulling Force (kgf)': F,
+    'Pulling Force (kgf)': (mT + (mP*Nl*Nw*Nh))*a*0.10972,
   }, index=[0])    
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)], Clen, Cwid, Chei)
   return df
@@ -62,41 +68,45 @@ def trolley_dim_detector_partHeight(Plen, Pwid, Phei, PartWeight, Clen, Cwid, Ch
   F = 0
   mP = PartWeight
   mT = 100
-  for i in range (1,100):
-    if (Plen*i)+(Clen*(i+1)) < 1400 and F < 16:
-      Tlen = (Plen*i)+(Clen*(i+1))
-      #print('{} Len block'.format(i))
-      Nl = i
-    else: 
-      pass
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-    
-    if (Pwid*i)+(Cwid*(i+1)) < 1000 and F < 16:
-      Twid = (Pwid*i)+(Cwid*(i+1))
-      #print('{} Width block'.format(i))
-      Nw = i
-    else: 
-      pass
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-    
-    if (Phei*i)+(Chei*(i+1))+Ghei < int(1500*1.2) and F < 16:
-      Thei = (Phei*i)+(Chei*(i+1))+Ghei
-      #print('{} height block {}'.format(i, Thei))
-      Nh = i
-    else: 
-      pass 
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-  df2 = pd.DataFrame({
+  i = 1
+  while F < 16:
+    if (Tlen+(Plen+Clen)<1400) or (Twid+Pwid+Cwid<1000) or (Thei+Phei+Chei<1500):
+        if (Plen*i)+(Clen*(i+1)) < 1400:
+          Tlen = (Plen*i)+(Clen*(i+1))
+          Nl=Nl+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nl -= 1
+            break
+        if (Pwid*i)+(Cwid*(i+1)) < 1000:
+          Twid = (Pwid*i)+(Cwid*(i+1))
+          Nw=Nw+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nw -= 1
+            break
+        if (Phei*i)+(Chei*(i+1))+Ghei < (1500+(1500*0.15)):
+          Thei = (Phei*i)+(Chei*(i+1))+Ghei
+          Nh=Nh+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nh -= 1
+            break
+    else:
+        break
+    #F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+    #Flst.append(F)
+    i+=1
+  df = pd.DataFrame({
     'Parameters' : 'Value',
     'Trolley Length (mm)': Tlen,
     'Trolley Width (mm)': Twid,
     'Trolley Height (mm)': Thei,
     'Capacity': Nl*Nw*Nh,
-    'Pulling Force (kgf)': F,
+    'Pulling Force (kgf)': (mT + (mP*Nl*Nw*Nh))*a*0.10972,
   }, index=[0])    
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)], Clen, Cwid, Chei)
-  print(df2)
-  return df2
+  return df
   
 
 def trolley_dim_detector(Plen, Pwid, Phei, PartWeight, Clen, Cwid, Chei, Ghei):
@@ -106,40 +116,45 @@ def trolley_dim_detector(Plen, Pwid, Phei, PartWeight, Clen, Cwid, Chei, Ghei):
   F = 0
   mP = PartWeight
   mT = 100
-  for i in range (1,100):
-    if (Plen*i)+(Clen*(i+1)) < 1400 and F < 16:
-      Tlen = (Plen*i)+(Clen*(i+1))
-      #print('{} Len block'.format(i))
-      Nl = i
-    else: 
-      pass
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-    
-    if (Pwid*i)+(Cwid*(i+1)) < 1000 and F < 16:
-      Twid = (Pwid*i)+(Cwid*(i+1))
-      #print('{} Width block'.format(i))
-      Nw = i
-    else: 
-      pass
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-    
-    if (Phei*i)+(Chei*(i+1))+Ghei < 1500 and F < 16:
-      Thei = (Phei*i)+(Chei*(i+1))+Ghei
-      #print('{} height block {}'.format(i, Thei))
-      Nh = i
-    else: 
-      pass 
-    F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
-  df3 = pd.DataFrame({
+  i = 1
+  while F < 16:
+    if (Tlen+(Plen+Clen)<1400) or (Twid+Pwid+Cwid<1000) or (Thei+Phei+Chei<1500):
+        if (Plen*i)+(Clen*(i+1)) < 1400:
+          Tlen = (Plen*i)+(Clen*(i+1))
+          Nl=Nl+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nl -= 1
+            break
+        if (Pwid*i)+(Cwid*(i+1)) < 1000:
+          Twid = (Pwid*i)+(Cwid*(i+1))
+          Nw=Nw+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nw -= 1
+            break
+        if (Phei*i)+(Chei*(i+1))+Ghei < 1500:
+          Thei = (Phei*i)+(Chei*(i+1))+Ghei
+          Nh=Nh+1
+          F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+        if F>16:
+            Nh -= 1
+            break
+    else:
+        break
+    #F = (mT + (mP*Nl*Nw*Nh))*a*0.10972
+    #Flst.append(F)
+    i+=1
+  df = pd.DataFrame({
     'Parameters' : 'Value',
     'Trolley Length (mm)': Tlen,
     'Trolley Width (mm)': Twid,
     'Trolley Height (mm)': Thei,
     'Capacity': Nl*Nw*Nh,
-    'Pulling Force (kgf)': F,
+    'Pulling Force (kgf)': (mT + (mP*Nl*Nw*Nh))*a*0.10972,
   }, index=[0])    
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)], Clen, Cwid, Chei)
-  return df3
+  return df
   #return([Tlen,Twid, Thei, Nl, Nw, Nh, np.prod([Nl,Nw,Nh]),round(F,3)])
 
 
