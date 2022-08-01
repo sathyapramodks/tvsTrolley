@@ -179,7 +179,7 @@ Ghei = stm.number_input("enter the gorund clearance for the the trolley")
 check4 = stm.radio("Choose the appropriate", ('Select if you want to auto calculate clearance between parts', 'Select if you want to protrude higher than the height of the trolley', 'Select if you want to calculate it normally'))
 
 if check4 == 'Select if you want to auto calculate clearance between parts':
-     stm.write('Part to part clearance will be calculated automatically \n 15 "%" of the dimension ')
+     stm.write('Part to part clearance will be calculated automatically \n 15% of the dimension ')
 elif check4 == 'Select if you want to protrude higher than the height of the trolley':
     stm.write('Parts can be stored to a maximum height of 15% the maximum trolley height')
 else:
