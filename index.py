@@ -180,6 +180,8 @@ check4 = stm.radio("Choose the appropriate", ('Select if you want to auto calcul
 
 if check4 == 'Select if you want to auto calculate clearance between parts':
      stm.write('Part to part clearance will be calculated automatically \n 15 "%" of the dimension ')
+elif check4 = 'Select if you want to protrude higher than the height of the trolley':
+    stm.write('Parts can be stored to a maximum height of 15% the maximum trolley height')
 else:
     clen = stm.number_input("Enter the clearance between parts in length direction ")
     cwid = stm.number_input("Enter the clearance between parts in Width direction ")
