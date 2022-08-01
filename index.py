@@ -172,7 +172,7 @@ Plen = stm.number_input('Enter the length of the Bounding (mm)')
 Pwid = stm.number_input("enter the width of the Bounding box (mm)")
 Phei = stm.number_input("Enter the height of the Bounding box (mm)")
 PartWeight = stm.number_input('Enter the weigth of the part (kg)')
-Ghei = stm.number_input("enter the gorund clearance for the the trolley")
+Ghei = stm.number_input("Enter the gorund clearance for the the trolley (mm)")
 # check = stm.checkbox('Select if you want to auto calculate clearance between parts', help = 'distance between parts', )
 # check2 = stm.checkbox('Select if you want to protrude higher than the height of the trolley')
 
